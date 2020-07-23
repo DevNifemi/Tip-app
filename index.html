@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tip Calculator</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@700&display=swap');
+    body{background-color: black; padding-top: 50px;}
+    h1{
+        font-family: 'Grenze Gotisch', cursive;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        padding-top: 9px;
+        padding-bottom: 15px;
+    }
+    .para{
+        margin-left: 4px !important;
+        font-family: monospace;
+        font-size: 15px;
+    }
+    .card{
+        background-color: #ffc600;
+        height: 525px;
+        width: 360px;
+        box-shadow: 0 0 2px 2px 	rgb(255,255,255);
+        border-radius: 10px;
+        margin: auto;
+    }
+    p{
+        margin-left: 20px;
+        font-family: monospace;
+        font-size: 15px;
+    }
+    form{
+        margin-left: 20px;
+    }
+    select{
+        width: 270px;
+        height: 50px;
+    }
+    button{
+        color: #ffc600;
+        width: 200px;
+        height: 50px;
+        text-transform: uppercase;
+        padding: 5px 5px;
+        display: block;
+        margin: 30px auto;
+        background-color: black ;
+        font-weight: bold;
+    }
+    button:hover{
+        background-color: black;
+        color: #ffc600;
+        cursor: pointer;
+    }
+    input{
+        width: 250px;
+        height: 20px;
+    }
+    .dive{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+  .dive{
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+
+</style>
+
+<body>
+    <div class="card">
+        <h1>Tip Calculator</h1>
+        <p>How much was your bill?</p>
+        <form action="" id="billForm">
+     <b>$$</b>   <input type="text" name="billAmount" id="billAmount" placeholder="How much is your bill">
+        <p class="para">How was the service rendered:</p>
+        <select name="services" id="servicesRender">
+            <option disabled selected value="0">Select how good the service was</option>
+            <option value="0.3">30% {Perfect}</option>
+            <option value="0.2">20% {Better}</option>
+            <option value="0.15">15% {Good}</option>
+            <option value="0.1">10% {Not bad}</option>
+            <option value="0.05">5% {Poor}</option>
+        </select> <br>
+        <p class="para">How many people are sharing the tip:</p>
+        <input type="text" name="people" id="peopleSharing" placeholder="How many people are sharing the tip"> <b>People</b> 
+        <button type="submit">Calculate Tip!</button>
+        </form>
+        <!-- answers -->
+        <center>
+        <div class="dive" id="answers">
+            <h3>Tip amount is:</h3>
+            <h2 id="finText"></h2>
+        </div>
+    </center>
+    </div>
+
+<script>
+    const billAmount = document.getElementById('billForm')
+    const options = document.getElementById('servicesRender')
+     const view = document.getElementById('answers')
+    view.style.display = 'none'
+     
+    function getAmount(e){
+        e.preventDefault()
+        const amount = this.querySelector('[name=billAmount]').value
+        const peopleSharing = this.querySelector('[name=people]').value
+        let total = (amount * options.value ) / peopleSharing
+        total = Math.round(total * 100) / 100;
+        total = total.toFixed(2);
+        view.style.display = 'block'
+        document.getElementById('finText').innerText = `$ ${total} each`
+        if(amount === '' || peopleSharing <= 0){
+            alert('Input your bill mate!')
+            view.style.display = 'none'
+        }
+   }
+
+    billAmount.addEventListener('submit', getAmount)
+</script>
+
+</body>
+</html>
